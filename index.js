@@ -18,7 +18,7 @@ const port = process.env.PORT || 3002;
 app.use(
     cors({
         // EXERCISE 4.7
-        origin: "https://127.0.0.1:3000",
+        origin: ((process.env.NODE_ENV === "production") ? "https://cfa-summer26-l10-weihua-api.onrender.com" : "https://127.0.0.1:3000"),
         credentials: true,
     })
 );
@@ -213,16 +213,19 @@ const start = async () => {
     try {
         await connectMongoose();
 
-        // EXERCISES 4.4 - 4.6
-        // app.listen(port, () => console.log(`Server running on port ${port}...`));
-
-        const httpsOptions = {
-            key: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1-key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1.pem'))
-        };
-        https.createServer(httpsOptions, app).listen(port, () => {
-            console.log(`Express API server running on https://127.0.0.1:${port}`);
-        });
+        if (process.env.NODE_ENV === "production") {
+            // EXERCISES 4.4 - 4.6
+            app.listen(port, () => console.log(`Server running on port ${port}...`));
+        }
+        else {
+            const httpsOptions = {
+                key: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1-key.pem')),
+                cert: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1.pem'))
+            };
+            https.createServer(httpsOptions, app).listen(port, () => {
+                console.log(`Express API server running on https://127.0.0.1:${port}`);
+            });
+        }
     }
     catch (err) {
         console.error(err);
