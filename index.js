@@ -15,10 +15,11 @@ const Message = require("./models/Message");
 const app = express();
 const port = process.env.PORT || 3002;
 
+app.set('trust proxy', true);
 app.use(
     cors({
         // EXERCISE 4.7
-        origin: "https://127.0.0.1:3000",
+        origin: "https://cfa-summer2026-weihua-www.netlify.app/",
         credentials: true,
     })
 );
@@ -214,15 +215,15 @@ const start = async () => {
         await connectMongoose();
 
         // EXERCISES 4.4 - 4.6
-        // app.listen(port, () => console.log(`Server running on port ${port}...`));
+        app.listen(port, () => console.log(`Server running on port ${port}...`));
 
-        const httpsOptions = {
-            key: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1-key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1.pem'))
-        };
-        https.createServer(httpsOptions, app).listen(port, () => {
-            console.log(`Express API server running on https://127.0.0.1:${port}`);
-        });
+        // const httpsOptions = {
+        //     key: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1-key.pem')),
+        //     cert: fs.readFileSync(path.resolve(__dirname, '../127.0.0.1.pem'))
+        // };
+        // https.createServer(httpsOptions, app).listen(port, () => {
+        //     console.log(`Express API server running on https://127.0.0.1:${port}`);
+        // });
     }
     catch (err) {
         console.error(err);
