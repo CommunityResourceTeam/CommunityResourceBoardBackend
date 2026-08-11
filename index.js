@@ -18,7 +18,7 @@ const port = process.env.PORT || 3002;
 app.use(
     cors({
         // EXERCISE 4.7
-        origin: ((process.env.NODE_ENV === "production") ? "https://cfa-summer2026-weihua-www.netlify.app" : "https://127.0.0.1:3000"),
+        origin: ((process.env.NODE_ENV === "production") ? "https://cfa-summer2026-weihua-www.netlify.app" : ["https://127.0.0.1:3000", "https://localhost:3000"]),
         credentials: true,
     })
 );
