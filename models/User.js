@@ -5,6 +5,14 @@ const { Schema, model } = require('mongoose');
 const userSchema = new Schema({
   username: String,
   password: String,
+  name: String,
+  email: String,
+  location: {
+    address: String,
+    city: String,
+    state: String,
+    zip: String
+  }
 });
 
 class UserClass {
