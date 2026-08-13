@@ -12,7 +12,7 @@ const postSchema = new Schema({
     state: String,
     zip: String,
     coordinates: { 
-      type: [Double]
+      type: [Number]
     }
   },
   hours: {
@@ -27,8 +27,8 @@ const postSchema = new Schema({
   website: String,
   tags: [{
     tagId: {
-      type: Schema.Types.ObjectId, // explicit id because it is embedded in post collection (?)
-      ref: 'Tag'
+      type: Number,
+      required: true
     },
     name: String
   }],
