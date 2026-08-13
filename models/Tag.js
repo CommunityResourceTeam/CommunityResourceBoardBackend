@@ -3,7 +3,6 @@ const collectionName = process.env.DB_COLL_TAGS;
 const { Schema, model } = require('mongoose');
 
 const tagSchema = new Schema({
-  _id: Number,
   name: String,
   color: String,
   language: Boolean

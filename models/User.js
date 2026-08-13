@@ -3,7 +3,12 @@ const collectionName = process.env.DB_COLL_USERS;
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
-  username: String,
+  _id: ObjectId,
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
   password: String,
   name: String,
   email: String,

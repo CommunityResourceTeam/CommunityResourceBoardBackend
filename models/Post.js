@@ -11,9 +11,8 @@ const postSchema = new Schema({
     city: String,
     state: String,
     zip: String,
-    coordinates: {
-      latitude: Number,
-      longitude: Number
+    coordinates: { 
+      type: [Double]
     }
   },
   hours: {
@@ -27,15 +26,26 @@ const postSchema = new Schema({
   },
   website: String,
   tags: [{
-    tagId: Number,
+    tagId: {
+      type: Schema.Types.ObjectId, // explicit id because it is embedded in post collection (?)
+      ref: 'Tag'
+    },
     name: String
   }],
   comments: [{
-    _id: String,
-    authorId: String,
+    _id: {
+      type: Schema.Types.ObjectId
+    },
+    authorId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
     authorUsername: String,
     body: String,
-    createdAt: Date
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
   }]
 });
 
